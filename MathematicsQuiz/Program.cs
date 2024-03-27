@@ -9,7 +9,7 @@ namespace MathematicsQuiz
         static string operators = "+-*/";
         static int current_question = 0;
 
-        static string questions = "";
+        static List<string> question_history = new List<string>();
         static int total_questions;
         static int correct_answers;
 
@@ -24,6 +24,7 @@ namespace MathematicsQuiz
 
             Console.WriteLine($"\nHi {name}, \nLet's begin!\n");
 
+            // Loop ask the user questions until they no longer want another
             while (true)
             {
                 current_question++;
@@ -31,7 +32,8 @@ namespace MathematicsQuiz
                 OneQuestion();
 
                 Console.WriteLine($"Would you like another question? (Y/N)");
-                if (Console.ReadLine().ToUpper() == "N")
+                string new_question = Console.ReadLine().ToUpper();
+                if (new_question == "N")
                 {
                     break;
                 }
@@ -39,7 +41,16 @@ namespace MathematicsQuiz
 
             // Print question history
             Console.Clear();
-            Console.WriteLine($"Question History: \n\n{questions}You got {correct_answers}/{total_questions} questions correct!");
+            Console.WriteLine($"Question History:\n\n");
+
+            // Loop over every question in the question history list
+            for (int i = 0; i < question_history.Count; i++)
+            {
+                Console.WriteLine($"{question_history[i]}");
+            }
+
+            // Question summary
+            Console.WriteLine($"You got {correct_answers}/{total_questions} questions correct!");         
         }
 
         static void OneQuestion()
@@ -76,7 +87,7 @@ namespace MathematicsQuiz
                 if (second_num == 0)
                     second_num++;
 
-                correct_answer = first_num / second_num;
+                correct_answer = MathF.Round((float)first_num / (float)second_num, 2);
             }
 
             // Print the question
@@ -84,24 +95,24 @@ namespace MathematicsQuiz
 
             // If the question is division, let the user know that the answer should be rounded to 1 decimal place
             if (current_operator == '/')
-                Console.WriteLine("(Rounded to 1 decimal place)");
+                Console.WriteLine("(Rounded to 2 decimal places)");
 
             user_answer = CheckFloat();
 
             // Compare correct answer to user answer
-            if (user_answer == MathF.Round(correct_answer, 1))
+            if (user_answer == correct_answer)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("You got it right! :D");
-                questions = questions + ($"Question {current_question}: \n{first_num} {current_operator} {second_num} = {correct_answer} \nYour answer was {user_answer}, which was correct.\n\n");
+                question_history.Add($"Question {current_question}: \n{first_num} {current_operator} {second_num} = {correct_answer} \nYour answer was {user_answer}, which was correct.\n\n");
                 correct_answers++;
                 Console.ResetColor();
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Incorrect!");
-                questions = questions + ($"Question {current_question}: \n{first_num} {current_operator} {second_num} = {correct_answer} \nYour answer was {user_answer}, which was incorrect.\n" +
+                Console.WriteLine($"Incorrect! The correct answer was {correct_answer}");
+                question_history.Add($"Question {current_question}: \n{first_num} {current_operator} {second_num} = {correct_answer} \nYour answer was {user_answer}, which was incorrect.\n" +
                     $"The correct answer was {correct_answer}\n\n");
                 Console.ResetColor();
             }
