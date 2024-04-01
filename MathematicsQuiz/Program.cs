@@ -61,7 +61,7 @@ namespace MathematicsQuiz
             }
 
             // Question summary
-            Console.WriteLine($"You got {correct_answers}/{total_questions} questions correct!");         
+            Console.WriteLine($"You got {correct_answers}/{total_questions} questions correct!");
         }
 
         // Randomly generates a question for the user, and compares the correct answer to their answer
@@ -84,18 +84,22 @@ namespace MathematicsQuiz
             // Calculate correct answer
             if (current_operator == '+')
             {
+                Console.ForegroundColor = ConsoleColor.Cyan; 
                 correct_answer = first_num + second_num;
             }
             else if (current_operator == '-')
             {
+                Console.ForegroundColor = ConsoleColor.Blue;
                 correct_answer = first_num - second_num;
             }
             else if (current_operator == '*')
             {
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 correct_answer = first_num * second_num;
             }
             else if (current_operator == '/')
             {
+                Console.ForegroundColor = ConsoleColor.Magenta;
                 if (second_num == 0)
                     second_num++;
 
