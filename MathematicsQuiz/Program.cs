@@ -15,6 +15,17 @@ namespace MathematicsQuiz
 
         static void Main(string[] args)
         {
+            // Print cool ASCII title
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("\r\n___  ___      _   _       _____       _     \r\n" +
+                "|  \\/  |     | | | |     |  _  |     (_)    \r\n" +
+                "| .  . | __ _| |_| |__   | | | |_   _ _ ____\r\n" +
+                "| |\\/| |/ _` | __| '_ \\  | | | | | | | |_  /\r\n" +
+                "| |  | | (_| | |_| | | | \\ \\/' / |_| | |/ / \r\n" +
+                "\\_|  |_/\\__,_|\\__|_| |_|  \\_/\\_\\\\__,_|_/___|\r\n" +
+                "      \nBy Luke Madsen\n");
+            Console.ResetColor();
+
             Console.WriteLine("Welcome to the Maths Quiz! \n\nWhat is your name?");
 
             Console.ForegroundColor = ConsoleColor.Green;
@@ -53,6 +64,7 @@ namespace MathematicsQuiz
             Console.WriteLine($"You got {correct_answers}/{total_questions} questions correct!");         
         }
 
+        // Randomly generates a question for the user, and compares the correct answer to their answer
         static void OneQuestion()
         {
             float user_answer;
@@ -93,15 +105,17 @@ namespace MathematicsQuiz
             // Print the question
             Console.WriteLine($"{first_num} {current_operator} {second_num} = ?");
 
-            // If the question is division, let the user know that the answer should be rounded to 1 decimal place
+            // If the question is division, let the user know that the answer should be rounded to 2 decimal places
             if (current_operator == '/')
                 Console.WriteLine("(Rounded to 2 decimal places)");
 
+            // Store the user's answer
             user_answer = CheckFloat();
 
             // Compare correct answer to user answer
             if (user_answer == correct_answer)
             {
+                // Correct
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("You got it right! :D");
                 question_history.Add($"Question {current_question}: \n{first_num} {current_operator} {second_num} = {correct_answer} \nYour answer was {user_answer}, which was correct.\n\n");
@@ -110,6 +124,7 @@ namespace MathematicsQuiz
             }
             else
             {
+                // Incorrect
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"Incorrect! The correct answer was {correct_answer}");
                 question_history.Add($"Question {current_question}: \n{first_num} {current_operator} {second_num} = {correct_answer} \nYour answer was {user_answer}, which was incorrect.\n" +
@@ -119,7 +134,7 @@ namespace MathematicsQuiz
             total_questions++;
         }
 
-        // Check integers
+        // Check floats
         static float CheckFloat()
         {
             while (true)
@@ -156,6 +171,7 @@ namespace MathematicsQuiz
                 Console.ResetColor();
             }
 
+            // Capitalise first letter
             name = char.ToUpper(name[0]) + name.Substring(1);
             return name;
         }
