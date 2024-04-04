@@ -42,6 +42,7 @@ namespace MathematicsQuiz
                 Console.WriteLine($"Question {current_question}:");
                 OneQuestion();
 
+                // Prompt the user to enter either Y/N, catch and prompt them if they enter otherwise
                 Console.WriteLine($"Would you like another question? (Y/N)");
                 Console.ForegroundColor = ConsoleColor.Green;
 
