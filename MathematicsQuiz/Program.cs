@@ -43,10 +43,28 @@ namespace MathematicsQuiz
                 OneQuestion();
 
                 Console.WriteLine($"Would you like another question? (Y/N)");
-                string new_question = Console.ReadLine().ToUpper();
+                Console.ForegroundColor = ConsoleColor.Green;
+
+                string new_question = "";
+                while (new_question != "Y" && new_question != "N")
+                {
+                    new_question = Console.ReadLine().ToUpper();
+                    if (new_question != "Y" && new_question != "N")
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("ERROR! Please enter either Y or N!");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    }
+                }
                 if (new_question == "N")
                 {
+                    Console.ResetColor();
                     break;
+                }
+                else if (new_question != "Y")
+                {
+                    Console.ResetColor();
+                    return;
                 }
             }
 
